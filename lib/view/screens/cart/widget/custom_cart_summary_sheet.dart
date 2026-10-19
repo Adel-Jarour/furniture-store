@@ -5,10 +5,12 @@ import '../../../../controller/cart_controller.dart';
 
 class CustomCartSummarySheet extends StatelessWidget {
   final CartController controller;
+  final double bottomPadding;
 
   const CustomCartSummarySheet({
     super.key,
     required this.controller,
+    this.bottomPadding = 0,
   });
 
   @override
@@ -25,7 +27,9 @@ class CustomCartSummarySheet extends StatelessWidget {
           ),
         ],
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h).copyWith(
+        bottom: 16.h + bottomPadding,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
