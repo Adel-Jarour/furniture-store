@@ -43,4 +43,6 @@ class ApiConfig {
   static const String notifications = '/notifications';
   static const String faqs = '/faqs';
   static const String contactChannels = '/contact-channels';
+  static const String searchRecent = '/search/recent';
+  static const String searchLocation = '/location/search';
 }

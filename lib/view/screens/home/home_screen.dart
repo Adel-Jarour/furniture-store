@@ -38,6 +38,7 @@ class HomeScreen extends StatelessWidget {
 
                   // ── Search & Filter Bar ────────────────────────────
                   CustomHomeSearchBar(
+                    onSearchTap: () => Get.toNamed(AppRoutes.search),
                     onFilterTap: () => Get.toNamed(AppRoutes.filter),
                   ),
                   SizedBox(height: 18.h),

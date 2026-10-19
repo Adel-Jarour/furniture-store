@@ -6,12 +6,14 @@ class CustomHomeSearchBar extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onFilterTap;
+  final VoidCallback? onSearchTap;
 
   const CustomHomeSearchBar({
     super.key,
     this.controller,
     this.onChanged,
     this.onFilterTap,
+    this.onSearchTap,
   });
 
   @override
@@ -20,42 +22,47 @@ class CustomHomeSearchBar extends StatelessWidget {
       children: [
         // Search Input Pill
         Expanded(
-          child: Container(
-            height: 48.h,
-            padding: EdgeInsets.symmetric(horizontal: 14.w),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF3F4F6),
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.search_rounded,
-                  color: ColorConst.textGreyColor,
-                  size: 22.r,
-                ),
-                SizedBox(width: 10.w),
-                Expanded(
-                  child: TextField(
-                    controller: controller,
-                    onChanged: onChanged,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: ColorConst.textBlackColor,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Search Workout, Trainer',
-                      hintStyle: TextStyle(
-                        fontSize: 13.sp,
-                        color: ColorConst.textGreyColor,
+          child: GestureDetector(
+            onTap: onSearchTap,
+            child: Container(
+              height: 48.h,
+              padding: EdgeInsets.symmetric(horizontal: 14.w),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF3F4F6),
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.search_rounded,
+                    color: ColorConst.textGreyColor,
+                    size: 22.r,
+                  ),
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      readOnly: onSearchTap != null,
+                      onTap: onSearchTap,
+                      onChanged: onChanged,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: ColorConst.textBlackColor,
                       ),
-                      border: InputBorder.none,
-                      isDense: true,
-                      contentPadding: EdgeInsets.zero,
+                      decoration: InputDecoration(
+                        hintText: 'Search...',
+                        hintStyle: TextStyle(
+                          fontSize: 13.sp,
+                          color: ColorConst.textGreyColor,
+                        ),
+                        border: InputBorder.none,
+                        isDense: true,
+                        contentPadding: EdgeInsets.zero,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

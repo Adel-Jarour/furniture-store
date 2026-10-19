@@ -37,6 +37,8 @@ import '../view/screens/chat_detail/chat_detail_screen.dart';
 import '../view/screens/notifications/notifications_screen.dart';
 import '../view/screens/help_center/help_center_screen.dart';
 import '../view/screens/profile/privacy_policy_screen.dart';
+import '../view/screens/search/search_screen.dart';
+import '../view/screens/location/search_manual_location_screen.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -224,6 +226,16 @@ class AppPages {
     GetPage(
       name: AppRoutes.privacyPolicy,
       page: () => const PrivacyPolicyScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.search,
+      page: () => const SearchScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.searchManualLocation,
+      page: () => const SearchManualLocationScreen(),
       transition: Transition.rightToLeft,
     ),
   ];

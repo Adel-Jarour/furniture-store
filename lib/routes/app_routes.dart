@@ -40,4 +40,6 @@ class AppRoutes {
   static const notifications = '/notifications';
   static const helpCenter = '/help-center';
   static const privacyPolicy = '/privacy-policy';
+  static const search = '/search';
+  static const searchManualLocation = '/search-manual-location';
 }

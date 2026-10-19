@@ -3,20 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../const/color_const.dart';
 import '../../../controller/location_controller.dart';
+import '../../../routes/app_routes.dart';
 import '../../widgets/custom_button.dart';
-import 'widget/custom_location_search_sheet.dart';
 
 class LocationScreen extends StatelessWidget {
   const LocationScreen({super.key});
-
-  void _openSearchSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => const CustomLocationSearchSheet(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +80,8 @@ class LocationScreen extends StatelessWidget {
                   // Enter Location Manually (Outlined)
                   CustomButton(
                     text: 'Enter Location Manually',
-                    onPressed: () => _openSearchSheet(context),
+                    onPressed: () =>
+                        Get.toNamed(AppRoutes.searchManualLocation),
                     backgroundColor: Colors.transparent,
                     textColor: ColorConst.textBlackColor,
                     border: BorderSide(
