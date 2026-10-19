@@ -59,9 +59,9 @@ lib/
 
 ---
 
-## 3. Four-Tier Architecture Pattern
+## 3. Clean Architecture & Repository Pattern
 
-All feature implementations MUST follow this 4-tier flow:
+All feature implementations follow this clean flow:
 
 ```
 [View / Screen] 
@@ -71,47 +71,36 @@ All feature implementations MUST follow this 4-tier flow:
       │ (manages loading flags, calls repository, calls update())
       ▼
 [Repository] 
-      │ (handles domain logic, parses Models, saves to MySharedPref)
+      │ (handles data abstraction, returns domain models, manages local session)
       ▼
-[API Client & BaseClient]
-        (makes HTTP request via Dio with Bearer token)
+[API Client / Mock Data Source]
+        (during UI development: returns structured mock data cleanly without speculative HTTP calls;
+         when backend is ready: makes HTTP requests via BaseClient)
 ```
 
 ### Layer Responsibilities:
 
-1. **`lib/data/api/*_api.dart`**:
-   - Only makes HTTP calls via `BaseClient`.
-   - Never contains UI code or state management.
-   - Example:
-     ```dart
-     class WalletApi {
-       final BaseClient _client = BaseClient();
-
-       Future<Response?> getWallets() async {
-         return await _client.get(ApiConfig.wallets);
-       }
-     }
-     ```
-
-2. **`lib/data/repository/*_repository.dart`**:
-   - Consumes the API class.
-   - Validates response status and parses raw JSON into model instances.
-   - Persists session data (like tokens or cached user info) into `MySharedPref`.
-   - Example:
+1. **`lib/data/repository/*_repository.dart`**:
+   - Acts as the single source of truth for the controller.
+   - **UI Development Phase (Current)**: Directly provides rich, realistic mock data (optionally with brief simulated latency `await Future.delayed(...)`) without firing speculative HTTP calls to non-existent servers.
+   - **Backend Integration Phase**: Once real backend contracts (Swagger / Postman) are available, calls the corresponding API class using `BaseClient` and parses the response into typed Models.
+   - Persists session data (tokens, user preferences) via `MySharedPref`.
+   - Example (UI / Mock Phase):
      ```dart
      class WalletRepository {
-       final WalletApi _api = WalletApi();
+       final List<WalletModel> _mockWallets = const [
+         WalletModel(id: 'w_1', balance: 2540.0, currency: 'USD', isActive: true),
+       ];
 
        Future<List<WalletModel>> getWallets() async {
-         final response = await _api.getWallets();
-         if (response == null || response.data == null) return [];
-         final List data = response.data['data'] ?? [];
-         return data.map((json) => WalletModel.fromJson(json)).toList();
+         // Simulated async delay
+         await Future.delayed(const Duration(milliseconds: 200));
+         return List.from(_mockWallets);
        }
      }
      ```
 
-3. **`lib/controller/*_controller.dart`**:
+2. **`lib/controller/*_controller.dart`**:
    - Extends `GetxController`.
    - Manages state variables (`isLoading`, data lists, form fields).
    - Calls `update()` to notify UI observers (or uses `Rx` / `.obs` where reactive streams are appropriate).
@@ -144,6 +133,10 @@ All feature implementations MUST follow this 4-tier flow:
        }
      }
      ```
+
+3. **`lib/data/api/*_api.dart` & `BaseClient`**:
+   - Dedicated networking layer ready for when the live backend is connected.
+   - Avoid creating speculative endpoints or fake HTTP calls until real backend documentation is available.
 
 4. **`lib/view/screens/*` (View Layer)**:
    - Never call APIs or write directly to storage inside widgets.
@@ -228,15 +221,14 @@ All feature implementations MUST follow this 4-tier flow:
 
 When implementing any new feature in this project:
 1. [ ] **Model**: Create/update the model class in `lib/models/` with null-safe `fromJson` / `toJson`.
-2. [ ] **API Config**: Add the endpoint to `lib/config/api_config.dart`.
-3. [ ] **API Class**: Implement the HTTP method in `lib/data/api/<feature>_api.dart` using `BaseClient`.
-4. [ ] **Repository**: Create `lib/data/repository/<feature>_repository.dart` to parse data and manage storage.
-5. [ ] **Controller**: Create `lib/controller/<feature>_controller.dart` extending `GetxController`.
-6. [ ] **Routes**: Register route name in `AppRoutes` and page in `AppPages`.
-7. [ ] **UI / View**: Create screen in `lib/view/screens/<feature>/<feature>_screen.dart`, breaking down sections into `widget/custom_<name>.dart`.
-8. [ ] **ScreenUtil & Constants**: Use `.w`, `.h`, `.sp`, `.r` and tokens from `ColorConst` / `ImageConst`.
-9. [ ] **Widget Extraction**: Apply the widget extraction rules from Section 9 — every screen section that is more than ~30 lines or is logically independent MUST become a dedicated widget file.
-10. [ ] **Validation**: Run `dart format lib/` and `flutter analyze` — zero issues are required before a feature is considered complete.
+2. [ ] **Repository**: Create `lib/data/repository/<feature>_repository.dart` returning clean, structured mock data (and handling local storage via `MySharedPref`).
+3. [ ] **Controller**: Create `lib/controller/<feature>_controller.dart` extending `GetxController` consuming the repository.
+4. [ ] **Routes**: Register route name in `AppRoutes` and page in `AppPages`.
+5. [ ] **UI / View**: Create screen in `lib/view/screens/<feature>/<feature>_screen.dart`, breaking down sections into `widget/custom_<name>.dart`.
+6. [ ] **ScreenUtil & Constants**: Use `.w`, `.h`, `.sp`, `.r` and tokens from `ColorConst` / `ImageConst`.
+7. [ ] **Widget Extraction**: Apply the widget extraction rules from Section 9 — every screen section that is more than ~30 lines or is logically independent MUST become a dedicated widget file.
+8. [ ] **Validation**: Run `dart format lib/` and `flutter analyze` — zero issues are required before a feature is considered complete.
+9. [ ] **Backend Readiness**: When the backend is ready, wire the repository to `lib/data/api/<feature>_api.dart` using `BaseClient` and `ApiConfig`.
 
 ---
 

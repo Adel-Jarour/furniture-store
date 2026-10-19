@@ -2,11 +2,8 @@ import '../../const/image_const.dart';
 import '../../models/category_model.dart';
 import '../../models/product_model.dart';
 import '../../models/review_model.dart';
-import '../api/catalog_api.dart';
 
 class CatalogRepository {
-  final CatalogApi _api = CatalogApi();
-
   // ── All 20 Categories from Category.png Design ─────────────
   final List<CategoryModel> _allCategories = const [
     CategoryModel(id: 'cat_sofa', title: 'Sofa', icon: 'weekend_rounded'),
@@ -52,13 +49,6 @@ class CatalogRepository {
   ];
 
   Future<List<CategoryModel>> getAllCategories() async {
-    try {
-      final response = await _api.getCategories();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((e) => CategoryModel.fromJson(e)).toList();
-      }
-    } catch (_) {}
     return _allCategories;
   }
 
@@ -81,11 +71,6 @@ class CatalogRepository {
   }
 
   Future<bool> submitReview(ReviewModel review) async {
-    try {
-      final response = await _api.submitReview(review.toJson());
-      return response?.statusCode == 200 || response?.statusCode == 201;
-    } catch (_) {
-      return true; // offline success fallback
-    }
+    return true;
   }
 }

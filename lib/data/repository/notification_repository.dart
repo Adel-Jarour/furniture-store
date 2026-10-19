@@ -1,9 +1,6 @@
 import '../../models/notification_model.dart';
-import '../api/notification_api.dart';
 
 class NotificationRepository {
-  final NotificationApi _api = NotificationApi();
-
   final List<NotificationModel> _mockToday = const [
     NotificationModel(
       id: '1',
@@ -43,30 +40,14 @@ class NotificationRepository {
   ];
 
   Future<List<NotificationModel>> getTodayNotifications() async {
-    try {
-      final response = await _api.getNotifications();
-      if (response != null && response.data != null) {
-        final List list = response.data['today'] ?? [];
-        return list.map((json) => NotificationModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
     return List.from(_mockToday);
   }
 
   Future<List<NotificationModel>> getYesterdayNotifications() async {
-    try {
-      final response = await _api.getNotifications();
-      if (response != null && response.data != null) {
-        final List list = response.data['yesterday'] ?? [];
-        return list.map((json) => NotificationModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
     return List.from(_mockYesterday);
   }
 
   Future<void> markAllAsRead() async {
-    try {
-      await _api.markAllAsRead();
-    } catch (_) {}
+    // In mock mode, marks are handled in state
   }
 }

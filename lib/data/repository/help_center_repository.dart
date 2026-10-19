@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../models/contact_channel_model.dart';
 import '../../models/faq_model.dart';
-import '../api/help_center_api.dart';
 
 class HelpCenterRepository {
-  final HelpCenterApi _api = HelpCenterApi();
-
   final List<FaqModel> _mockFaqs = [
     FaqModel(
       id: '1',
@@ -106,23 +103,10 @@ class HelpCenterRepository {
   ];
 
   Future<List<FaqModel>> getFaqs() async {
-    try {
-      final response = await _api.getFaqs();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((json) => FaqModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
     return List.from(_mockFaqs);
   }
 
   Future<List<ContactChannelModel>> getContactChannels() async {
-    try {
-      final response = await _api.getContactChannels();
-      if (response != null && response.data != null) {
-        // Can parse response if available
-      }
-    } catch (_) {}
     return List.from(_mockContactChannels);
   }
 }

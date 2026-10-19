@@ -3,11 +3,8 @@ import '../../models/banner_model.dart';
 import '../../models/category_model.dart';
 import '../../models/chat_item_model.dart';
 import '../../models/product_model.dart';
-import '../api/home_api.dart';
 
 class HomeRepository {
-  final HomeApi _api = HomeApi();
-
   // ── Default Mock / Offline Banners ─────────────────────────
   final List<BannerModel> _mockBanners = const [
     BannerModel(
@@ -133,46 +130,18 @@ class HomeRepository {
   ];
 
   Future<List<BannerModel>> getBanners() async {
-    try {
-      final response = await _api.getBanners();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((e) => BannerModel.fromJson(e)).toList();
-      }
-    } catch (_) {}
     return _mockBanners;
   }
 
   Future<List<CategoryModel>> getCategories() async {
-    try {
-      final response = await _api.getCategories();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((e) => CategoryModel.fromJson(e)).toList();
-      }
-    } catch (_) {}
     return _mockCategories;
   }
 
   Future<List<ProductModel>> getPopularProducts() async {
-    try {
-      final response = await _api.getPopularProducts();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((e) => ProductModel.fromJson(e)).toList();
-      }
-    } catch (_) {}
     return _mockProducts;
   }
 
   Future<List<ChatItemModel>> getChats() async {
-    try {
-      final response = await _api.getChatConversations();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((e) => ChatItemModel.fromJson(e)).toList();
-      }
-    } catch (_) {}
     return _mockChats;
   }
 }

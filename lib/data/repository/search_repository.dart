@@ -1,11 +1,8 @@
 import '../../const/image_const.dart';
 import '../../models/location_result_model.dart';
 import '../../models/product_model.dart';
-import '../api/search_api.dart';
 
 class SearchRepository {
-  final SearchApi _api = SearchApi();
-
   final List<String> _recentSearches = [
     'Sofa Chair',
     'Arm Chair',
@@ -133,13 +130,6 @@ class SearchRepository {
   ];
 
   Future<List<String>> getRecentSearches() async {
-    try {
-      final response = await _api.getRecentSearches();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((e) => e.toString()).toList();
-      }
-    } catch (_) {}
     return List.from(_recentSearches);
   }
 
@@ -158,14 +148,6 @@ class SearchRepository {
   }
 
   Future<List<ProductModel>> searchProducts(String query) async {
-    try {
-      final response = await _api.searchProducts(query);
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((json) => ProductModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
-
     if (query.trim().isEmpty) return [];
     final lower = query.toLowerCase();
     return _mockSearchResults.where((p) {
@@ -175,14 +157,6 @@ class SearchRepository {
   }
 
   Future<List<LocationResultModel>> searchLocations(String query) async {
-    try {
-      final response = await _api.searchLocations(query);
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((json) => LocationResultModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
-
     if (query.trim().isEmpty) return _mockLocations;
     final lower = query.toLowerCase();
     return _mockLocations.where((loc) {

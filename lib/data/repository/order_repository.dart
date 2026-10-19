@@ -5,21 +5,9 @@ import '../../models/coupon_model.dart';
 import '../../models/order_model.dart';
 import '../../models/product_model.dart';
 import '../../models/shipping_option_model.dart';
-import '../api/order_api.dart';
 
 class OrderRepository {
-  final OrderApi _api = OrderApi();
-
   Future<List<CartItemModel>> getCartItems() async {
-    try {
-      final response = await _api.getCart();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((json) => CartItemModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
-
-    // Fallback data matching UI/My Cart.png
     return [
       CartItemModel(
         id: 'cart_1',
@@ -85,15 +73,6 @@ class OrderRepository {
   }
 
   Future<List<ShippingOptionModel>> getShippingOptions() async {
-    try {
-      final response = await _api.getShippingOptions();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((json) => ShippingOptionModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
-
-    // Fallback data matching UI/Choose Shipping.png
     return const [
       ShippingOptionModel(
         id: 'ship_1',
@@ -131,15 +110,6 @@ class OrderRepository {
   }
 
   Future<List<CouponModel>> getCoupons() async {
-    try {
-      final response = await _api.getCoupons();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((json) => CouponModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
-
-    // Fallback data matching UI/Coupons.png
     return const [
       CouponModel(
         id: 'cpn_1',
@@ -178,14 +148,6 @@ class OrderRepository {
   }
 
   Future<List<OrderModel>> getOrders(OrderStatus status) async {
-    try {
-      final response = await _api.getOrders(status: status.name);
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((json) => OrderModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
-
     final defaultSteps = const [
       TrackingStep(
         title: 'Order Placed',

@@ -1,9 +1,6 @@
 import '../../models/address_model.dart';
-import '../api/address_api.dart';
 
 class AddressRepository {
-  final AddressApi _api = AddressApi();
-
   final List<AddressModel> _mockAddresses = [
     const AddressModel(
       id: '1',
@@ -32,33 +29,24 @@ class AddressRepository {
   ];
 
   Future<List<AddressModel>> getAddresses() async {
-    try {
-      final response = await _api.getAddresses();
-      if (response != null && response.data != null) {
-        final List list = response.data['data'] ?? [];
-        return list.map((json) => AddressModel.fromJson(json)).toList();
-      }
-    } catch (_) {}
     return List.from(_mockAddresses);
   }
 
   Future<bool> addAddress(AddressModel address) async {
-    try {
-      final response = await _api.addAddress(address.toJson());
-      if (response != null && response.statusCode == 200) {
-        return true;
-      }
-    } catch (_) {}
     _mockAddresses.add(address);
     return true;
   }
 
   Future<bool> selectAddress(String id) async {
-    try {
-      await _api.selectAddress(id);
-      return true;
-    } catch (_) {
-      return true;
+    for (int i = 0; i < _mockAddresses.length; i++) {
+      final item = _mockAddresses[i];
+      _mockAddresses[i] = AddressModel(
+        id: item.id,
+        label: item.label,
+        fullAddress: item.fullAddress,
+        isSelected: item.id == id,
+      );
     }
+    return true;
   }
 }
