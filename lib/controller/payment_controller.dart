@@ -1,33 +1,68 @@
 import 'package:get/get.dart';
+import '../data/repository/payment_repository.dart';
 import '../models/payment_card_model.dart';
+import '../routes/app_routes.dart';
+import '../utils/app_snack_bar.dart';
 
 enum PaymentOption { cash, card, paypal, applePay, googlePay }
 
 class PaymentController extends GetxController {
+  final PaymentRepository _repository = PaymentRepository();
+
   PaymentOption selectedOption = PaymentOption.cash;
   bool isLoading = false;
+  List<PaymentCardModel> savedCards = [];
+  String? selectedDefaultCardId;
 
-  List<PaymentCardModel> savedCards = const [
-    PaymentCardModel(
-      id: 'card_1',
-      holderName: 'Esther Howard',
-      cardNumber: '4716 9627 1635 8047',
-      expiryDate: '02/30',
-      cvv: '000',
-    ),
-  ];
+  @override
+  void onInit() {
+    super.onInit();
+    fetchCards();
+  }
+
+  Future<void> fetchCards() async {
+    try {
+      isLoading = true;
+      update();
+      savedCards = await _repository.getCards();
+      final defaultCard = savedCards.firstWhereOrNull((c) => c.isDefault);
+      selectedDefaultCardId = defaultCard?.id ??
+          (savedCards.isNotEmpty ? savedCards.first.id : null);
+    } catch (_) {
+      AppSnackBar.showError(message: 'Failed to load payment cards');
+    } finally {
+      isLoading = false;
+      update();
+    }
+  }
 
   void selectOption(PaymentOption option) {
     selectedOption = option;
     update();
   }
 
+  void selectDefaultCard(String id) {
+    selectedDefaultCardId = id;
+    _repository.setDefaultCard(id);
+    update();
+  }
+
   Future<void> confirmPayment() async {
     isLoading = true;
     update();
-    await Future.delayed(const Duration(seconds: 2));
-    isLoading = false;
-    update();
-    Get.toNamed('/payment-success');
+    try {
+      await _repository.confirmPayment(
+        paymentType: selectedOption.name,
+        cardId:
+            selectedOption == PaymentOption.card ? selectedDefaultCardId : null,
+        totalAmount: 185.00,
+      );
+      Get.toNamed(AppRoutes.paymentSuccess);
+    } catch (_) {
+      AppSnackBar.showError(message: 'Payment failed. Please try again.');
+    } finally {
+      isLoading = false;
+      update();
+    }
   }
 }

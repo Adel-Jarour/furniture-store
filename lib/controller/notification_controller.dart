@@ -1,68 +1,34 @@
 import 'package:get/get.dart';
+import '../data/repository/notification_repository.dart';
 import '../models/notification_model.dart';
 
 class NotificationController extends GetxController {
+  final NotificationRepository _repository = NotificationRepository();
+
   int newCount = 2;
+  bool isLoading = false;
+  List<NotificationModel> todayNotifications = [];
+  List<NotificationModel> yesterdayNotifications = [];
 
-  final List<NotificationModel> todayNotifications = const [
-    NotificationModel(
-      id: 'n1',
-      title: 'Order Shipped',
-      type: 'order',
-      time: '1h',
-      body:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    ),
-    NotificationModel(
-      id: 'n2',
-      title: 'Flash Sale Alert',
-      type: 'promo',
-      time: '1h',
-      body:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    ),
-    NotificationModel(
-      id: 'n3',
-      title: 'Product Review Request',
-      type: 'review',
-      time: '1h',
-      body:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis',
-    ),
-  ];
+  @override
+  void onInit() {
+    super.onInit();
+    fetchNotifications();
+  }
 
-  final List<NotificationModel> yesterdayNotifications = const [
-    NotificationModel(
-      id: 'n4',
-      title: 'Order Shipped',
-      type: 'order',
-      time: '1d',
-      body:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      isRead: true,
-    ),
-    NotificationModel(
-      id: 'n5',
-      title: 'New Paypal Added',
-      type: 'payment',
-      time: '1d',
-      body:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      isRead: true,
-    ),
-    NotificationModel(
-      id: 'n6',
-      title: 'Flash Sale Alert',
-      type: 'promo',
-      time: '1d',
-      body:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      isRead: true,
-    ),
-  ];
+  Future<void> fetchNotifications() async {
+    isLoading = true;
+    update();
+    todayNotifications = await _repository.getTodayNotifications();
+    yesterdayNotifications = await _repository.getYesterdayNotifications();
+    newCount = todayNotifications.where((n) => !n.isRead).length;
+    isLoading = false;
+    update();
+  }
 
   void markAllRead() {
     newCount = 0;
+    _repository.markAllAsRead();
     update();
   }
 }

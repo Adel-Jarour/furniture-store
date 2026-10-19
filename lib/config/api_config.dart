@@ -37,7 +37,10 @@ class ApiConfig {
   static const String addresses = '/user/addresses';
   static const String paymentMethods = '/user/payment-methods';
 
-  // Support & Chat
+  // Support, FAQs & Notifications
   static const String chatConversations = '/chat/conversations';
   static const String chatMessages = '/chat/messages';
+  static const String notifications = '/notifications';
+  static const String faqs = '/faqs';
+  static const String contactChannels = '/contact-channels';
 }

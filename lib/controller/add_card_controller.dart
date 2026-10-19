@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../data/repository/payment_repository.dart';
+import '../models/payment_card_model.dart';
+import '../utils/app_snack_bar.dart';
 
 class AddCardController extends GetxController {
+  final PaymentRepository _repository = PaymentRepository();
+
   final holderNameController = TextEditingController();
   final cardNumberController = TextEditingController();
   final expiryController = TextEditingController();
@@ -28,12 +33,35 @@ class AddCardController extends GetxController {
   }
 
   Future<void> addCard() async {
-    isLoading = true;
-    update();
-    await Future.delayed(const Duration(seconds: 1));
-    isLoading = false;
-    update();
-    Get.back();
+    if (cardNumberController.text.trim().isEmpty ||
+        expiryController.text.trim().isEmpty ||
+        holderNameController.text.trim().isEmpty) {
+      AppSnackBar.showError(message: 'Please fill all card details');
+      return;
+    }
+
+    try {
+      isLoading = true;
+      update();
+      final newCard = PaymentCardModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        holderName: holderNameController.text.trim(),
+        cardNumber: cardNumberController.text.trim(),
+        expiryDate: expiryController.text.trim(),
+        cvv: cvvController.text.trim(),
+        cardType:
+            cardNumberController.text.startsWith('4') ? 'visa' : 'mastercard',
+        isDefault: saveCard,
+      );
+      await _repository.addCard(newCard);
+      AppSnackBar.showSuccess(message: 'Card added successfully');
+      Get.back(result: true);
+    } catch (_) {
+      AppSnackBar.showError(message: 'Failed to add card');
+    } finally {
+      isLoading = false;
+      update();
+    }
   }
 
   @override
