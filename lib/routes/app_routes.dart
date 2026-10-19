@@ -1,0 +1,41 @@
+class AppRoutes {
+  static const splash = '/splash';
+  static const welcome = '/welcome';
+  static const onboarding = '/onboarding';
+  static const location = '/location';
+  static const login = '/login';
+  static const signup = '/signup';
+  static const completeProfile = '/complete-profile';
+  static const forgotPassword = '/forgot-password';
+  static const otpVerification = '/otp-verification';
+  static const resetPassword = '/reset-password';
+  static const bottomNav = '/bottom-nav';
+  static const home = '/home';
+  static const catalog = '/catalog';
+  static const category = '/category';
+  static const filter = '/filter';
+  static const productDetails = '/product-details';
+  static const leaveReview = '/leave-review';
+  static const wishlist = '/wishlist';
+  static const cart = '/cart';
+  static const checkout = '/checkout';
+  static const orderSuccess = '/order-success';
+  static const chat = '/chat';
+  static const profile = '/profile';
+  static const chooseShipping = '/choose-shipping';
+  static const coupons = '/coupons';
+  static const eReceipt = '/e-receipt';
+  static const orders = '/orders';
+  static const trackOrder = '/track-order';
+  static const orderHistory = '/order-history';
+  static const settings = '/settings';
+  // Sprint 4
+  static const paymentMethods = '/payment-methods';
+  static const paymentSuccess = '/payment-success';
+  static const managePaymentMethods = '/manage-payment-methods';
+  static const addCard = '/add-card';
+  static const manageAddress = '/manage-address';
+  static const addAddress = '/add-address';
+  static const chatDetail = '/chat-detail';
+  static const notifications = '/notifications';
+}
