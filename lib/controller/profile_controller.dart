@@ -4,6 +4,8 @@ import '../const/image_const.dart';
 import '../routes/app_routes.dart';
 import '../utils/my_shared_pref.dart';
 
+import '../view/screens/profile/widget/custom_logout_bottom_sheet.dart';
+
 class ProfileMenuItem {
   final String title;
   final IconData icon;
@@ -24,7 +26,7 @@ class ProfileController extends GetxController {
     ProfileMenuItem(
       title: 'Your profile',
       icon: Icons.person_outline_rounded,
-      onTap: () {},
+      onTap: () => Get.toNamed(AppRoutes.completeProfile),
     ),
     ProfileMenuItem(
       title: 'Manage Address',
@@ -54,12 +56,12 @@ class ProfileController extends GetxController {
     ProfileMenuItem(
       title: 'Help Center',
       icon: Icons.info_outline_rounded,
-      onTap: () {},
+      onTap: () => Get.toNamed(AppRoutes.helpCenter),
     ),
     ProfileMenuItem(
       title: 'Privacy Policy',
       icon: Icons.lock_outline_rounded,
-      onTap: () {},
+      onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
     ),
     ProfileMenuItem(
       title: 'Invites Friends',
@@ -69,9 +71,18 @@ class ProfileController extends GetxController {
     ProfileMenuItem(
       title: 'Log out',
       icon: Icons.logout_rounded,
-      onTap: logout,
+      onTap: confirmLogout,
     ),
   ];
+
+  void confirmLogout() {
+    if (Get.context != null) {
+      CustomLogoutBottomSheet.show(
+        Get.context!,
+        onConfirmLogout: logout,
+      );
+    }
+  }
 
   Future<void> logout() async {
     await MySharedPref.clearSession();

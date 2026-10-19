@@ -35,6 +35,8 @@ import '../view/screens/address/manage_address_screen.dart';
 import '../view/screens/address/add_address_screen.dart';
 import '../view/screens/chat_detail/chat_detail_screen.dart';
 import '../view/screens/notifications/notifications_screen.dart';
+import '../view/screens/help_center/help_center_screen.dart';
+import '../view/screens/profile/privacy_policy_screen.dart';
 
 class AppPages {
   static const initial = AppRoutes.splash;
@@ -212,6 +214,16 @@ class AppPages {
     GetPage(
       name: AppRoutes.notifications,
       page: () => const NotificationsScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.helpCenter,
+      page: () => const HelpCenterScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.privacyPolicy,
+      page: () => const PrivacyPolicyScreen(),
       transition: Transition.rightToLeft,
     ),
   ];

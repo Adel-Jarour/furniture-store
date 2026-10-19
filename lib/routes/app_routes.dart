@@ -38,4 +38,6 @@ class AppRoutes {
   static const addAddress = '/add-address';
   static const chatDetail = '/chat-detail';
   static const notifications = '/notifications';
+  static const helpCenter = '/help-center';
+  static const privacyPolicy = '/privacy-policy';
 }
