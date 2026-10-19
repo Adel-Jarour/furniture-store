@@ -23,6 +23,7 @@ class CustomHomeSearchBar extends StatelessWidget {
         // Search Input Pill
         Expanded(
           child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: onSearchTap,
             child: Container(
               height: 48.h,
@@ -40,26 +41,32 @@ class CustomHomeSearchBar extends StatelessWidget {
                   ),
                   SizedBox(width: 10.w),
                   Expanded(
-                    child: TextField(
-                      controller: controller,
-                      readOnly: onSearchTap != null,
-                      onTap: onSearchTap,
-                      onChanged: onChanged,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: ColorConst.textBlackColor,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: 'Search...',
-                        hintStyle: TextStyle(
-                          fontSize: 13.sp,
-                          color: ColorConst.textGreyColor,
-                        ),
-                        border: InputBorder.none,
-                        isDense: true,
-                        contentPadding: EdgeInsets.zero,
-                      ),
-                    ),
+                    child: onSearchTap != null
+                        ? Text(
+                            'Search...',
+                            style: TextStyle(
+                              fontSize: 13.sp,
+                              color: ColorConst.textGreyColor,
+                            ),
+                          )
+                        : TextField(
+                            controller: controller,
+                            onChanged: onChanged,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: ColorConst.textBlackColor,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: 'Search...',
+                              hintStyle: TextStyle(
+                                fontSize: 13.sp,
+                                color: ColorConst.textGreyColor,
+                              ),
+                              border: InputBorder.none,
+                              isDense: true,
+                              contentPadding: EdgeInsets.zero,
+                            ),
+                          ),
                   ),
                 ],
               ),

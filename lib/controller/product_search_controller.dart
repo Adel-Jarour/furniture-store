@@ -24,7 +24,6 @@ class ProductSearchController extends GetxController {
 
   Future<void> loadInitialData() async {
     isLoading = true;
-    update();
     recentSearches = await _repository.getRecentSearches();
     recentViews = await _repository.getRecentViews();
     isLoading = false;
