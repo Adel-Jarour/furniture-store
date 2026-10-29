@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../const/color_const.dart';
 import '../../../../controller/chat_detail_controller.dart';
+import '../../../../routes/app_routes.dart';
 
 class CustomChatDetailHeader extends StatelessWidget {
   final ChatDetailController controller;
@@ -49,6 +50,17 @@ class CustomChatDetailHeader extends StatelessWidget {
               ],
             ),
           ),
+          GestureDetector(
+            onTap: () => Get.toNamed(AppRoutes.voiceCall),
+            child: Icon(Icons.call_rounded, size: 22.r, color: Colors.white),
+          ),
+          SizedBox(width: 14.w),
+          GestureDetector(
+            onTap: () => Get.toNamed(AppRoutes.videoCall),
+            child:
+                Icon(Icons.videocam_rounded, size: 24.r, color: Colors.white),
+          ),
+          SizedBox(width: 8.w),
           Icon(Icons.more_vert_rounded, size: 22.r, color: Colors.white),
         ],
       ),

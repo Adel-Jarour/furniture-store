@@ -6,6 +6,7 @@ class ReviewModel {
   final String date;
   final String reviewerName;
   final String reviewerAvatar;
+  final bool isVerified;
   final List<String> photos;
 
   const ReviewModel({
@@ -16,6 +17,7 @@ class ReviewModel {
     required this.date,
     required this.reviewerName,
     this.reviewerAvatar = '',
+    this.isVerified = true,
     this.photos = const [],
   });
 
@@ -28,6 +30,7 @@ class ReviewModel {
       date: json['date']?.toString() ?? '',
       reviewerName: json['reviewer_name']?.toString() ?? '',
       reviewerAvatar: json['reviewer_avatar']?.toString() ?? '',
+      isVerified: json['is_verified'] as bool? ?? true,
       photos:
           (json['photos'] as List?)?.map((e) => e.toString()).toList() ?? [],
     );
@@ -42,6 +45,7 @@ class ReviewModel {
       'date': date,
       'reviewer_name': reviewerName,
       'reviewer_avatar': reviewerAvatar,
+      'is_verified': isVerified,
       'photos': photos,
     };
   }

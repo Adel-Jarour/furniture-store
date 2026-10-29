@@ -42,4 +42,14 @@ class AppRoutes {
   static const privacyPolicy = '/privacy-policy';
   static const search = '/search';
   static const searchManualLocation = '/search-manual-location';
+  // Sprint 5
+  static const categoryProducts = '/category-products';
+  static const inviteFriends = '/invite-friends';
+  static const passwordManager = '/password-manager';
+  static const reviewSummary = '/review-summary';
+  static const productReviews = '/product-reviews';
+  static const shippingAddress = '/shipping-address';
+  static const videoCall = '/video-call';
+  static const voiceCall = '/voice-call';
+  static const notificationSettings = '/notification-settings';
 }

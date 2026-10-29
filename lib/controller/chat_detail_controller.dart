@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/chat_message_model.dart';
+import '../models/chat_item_model.dart';
 import '../const/image_const.dart';
 
 class ChatDetailController extends GetxController {
@@ -8,6 +9,17 @@ class ChatDetailController extends GetxController {
   String senderName = 'Sheila Lemke';
   String senderAvatar = ImageConst.avatarChat1;
   bool senderOnline = true;
+
+  @override
+  void onInit() {
+    super.onInit();
+    final args = Get.arguments;
+    if (args is ChatItemModel) {
+      senderName = args.senderName;
+      senderAvatar = args.avatar;
+      senderOnline = args.isOnline;
+    }
+  }
 
   List<ChatMessageModel> messages = [
     const ChatMessageModel(

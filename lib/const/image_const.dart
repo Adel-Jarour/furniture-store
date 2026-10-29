@@ -7,6 +7,7 @@ class ImageConst {
   // Logos & Brand
   static const String appLogo = '${_imagePath}app_logo.png';
   static const String appLogoSvg = '${_iconPath}app_logo.svg';
+  static const String splashLogo = '${_imagePath}splash_logo.png';
 
   // Onboarding & Welcome
   static const String welcomeHero = '${_imagePath}welcome_hero.png';
@@ -62,6 +63,8 @@ class ImageConst {
   static const String avatarChat2 = '${_imagePath}avatar_chat_2.png';
   static const String chatImage = '${_imagePath}chat_image.png';
   static const String mapPlaceholder = '${_imagePath}map_placeholder.png';
+  static const String callRepAgent = '${_imagePath}call_rep_agent.png';
+  static const String callUserPip = '${_imagePath}call_user_pip.png';
 
   // Lottie Animations
   static const String lottieSuccess = '${_lottiePath}order_success.json';

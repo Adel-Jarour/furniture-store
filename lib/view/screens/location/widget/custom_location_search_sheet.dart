@@ -11,6 +11,7 @@ class CustomLocationSearchSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LocationController>(
+      init: LocationController(),
       builder: (controller) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),

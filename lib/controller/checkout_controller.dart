@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../data/repository/order_repository.dart';
 import '../models/cart_item_model.dart';
 import '../models/shipping_option_model.dart';
+import '../models/address_model.dart';
 import '../routes/app_routes.dart';
 import '../utils/app_snack_bar.dart';
 
@@ -51,11 +52,16 @@ class CheckoutController extends GetxController {
     }
   }
 
-  void changeAddress() {
-    Get.toNamed(AppRoutes.location);
+  Future<void> changeAddress() async {
+    final result = await Get.toNamed(AppRoutes.shippingAddress);
+    if (result is AddressModel) {
+      addressType = result.label;
+      addressDetails = result.fullAddress;
+      update();
+    }
   }
 
   void continueToPayment() {
-    Get.toNamed(AppRoutes.paymentMethods);
+    Get.toNamed(AppRoutes.reviewSummary);
   }
 }

@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'const/color_const.dart';
 import 'routes/app_pages.dart';
+import 'routes/app_routes.dart';
 import 'utils/my_shared_pref.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Initialize Local Storage
   await MySharedPref.init();
+
+  // Determine initial route based on auth status
+  final isLoggedIn = MySharedPref.isLoggedIn();
+  final initialRoute = isLoggedIn ? AppRoutes.bottomNav : AppRoutes.welcome;
 
   // System UI Overlay Style (Status bar & Navigation bar)
   SystemChrome.setSystemUIOverlayStyle(
@@ -23,11 +30,16 @@ void main() async {
     ),
   );
 
-  runApp(const FurnitureStoreApp());
+  // Dismiss native splash screen seamlessly once Flutter is ready
+  FlutterNativeSplash.remove();
+
+  runApp(FurnitureStoreApp(initialRoute: initialRoute));
 }
 
 class FurnitureStoreApp extends StatelessWidget {
-  const FurnitureStoreApp({super.key});
+  final String initialRoute;
+
+  const FurnitureStoreApp({super.key, this.initialRoute = AppPages.initial});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +72,7 @@ class FurnitureStoreApp extends StatelessWidget {
               scrolledUnderElevation: 0,
             ),
           ),
-          initialRoute: AppPages.initial,
+          initialRoute: initialRoute,
           getPages: AppPages.routes,
         );
       },

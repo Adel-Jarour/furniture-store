@@ -120,7 +120,13 @@ class CategoryScreen extends StatelessWidget {
                       return CustomCategoryGridItem(
                         item: item,
                         icon: _getIcon(item.id),
-                        onTap: () => Get.toNamed(AppRoutes.filter),
+                        onTap: () => Get.toNamed(
+                          AppRoutes.categoryProducts,
+                          arguments: {
+                            'categoryName': item.title,
+                            'categoryId': item.id,
+                          },
+                        ),
                       );
                     },
                   ),

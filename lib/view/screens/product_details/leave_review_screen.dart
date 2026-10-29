@@ -137,7 +137,11 @@ class LeaveReviewScreen extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () => Get.snackbar(
+                              'Add Photo',
+                              'Image picker will be available with camera integration.',
+                              snackPosition: SnackPosition.BOTTOM,
+                            ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [

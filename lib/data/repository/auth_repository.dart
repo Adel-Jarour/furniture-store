@@ -72,6 +72,14 @@ class AuthRepository {
     return true;
   }
 
+  Future<bool> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    return true;
+  }
+
   Future<void> logout() async {
     await MySharedPref.clearSession();
   }

@@ -36,7 +36,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
                         // Info & Titles Section
                         GestureDetector(
-                          onTap: () => Get.toNamed(AppRoutes.leaveReview),
+                          onTap: () => Get.toNamed(AppRoutes.productReviews),
                           child:
                               CustomProductInfoSection(controller: controller),
                         ),

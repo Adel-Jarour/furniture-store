@@ -10,6 +10,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
+      init: AuthController(),
       builder: (controller) {
         return Scaffold(
           backgroundColor: Colors.white,

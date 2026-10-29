@@ -66,7 +66,7 @@ class ProfileController extends GetxController {
     ProfileMenuItem(
       title: 'Invites Friends',
       icon: Icons.group_add_outlined,
-      onTap: () {},
+      onTap: () => Get.toNamed(AppRoutes.inviteFriends),
     ),
     ProfileMenuItem(
       title: 'Log out',

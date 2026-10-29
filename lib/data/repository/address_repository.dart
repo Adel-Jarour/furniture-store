@@ -5,25 +5,25 @@ class AddressRepository {
     const AddressModel(
       id: '1',
       label: 'Home',
-      fullAddress: '2095 Barefoot Bay, Florida 32909, USA',
+      fullAddress: '1901 Thornridge Cir. Shiloh, Hawaii 81063',
       isSelected: true,
     ),
     const AddressModel(
       id: '2',
       label: 'Office',
-      fullAddress: '702 South Shore, Austin, Texas 78741, USA',
+      fullAddress: '4517 Washington Ave. Manchester, Kentucky 39495',
       isSelected: false,
     ),
     const AddressModel(
       id: '3',
-      label: 'Apartment',
-      fullAddress: '1540 Ocean Ave, Brooklyn, New York 11230, USA',
+      label: "Parent's House",
+      fullAddress: '8502 Preston Rd. Inglewood, Maine 98380',
       isSelected: false,
     ),
     const AddressModel(
       id: '4',
-      label: "Parent's House",
-      fullAddress: '312 Elm Street, Denver, Colorado 80202, USA',
+      label: "Friend's House",
+      fullAddress: '2464 Royal Ln. Mesa, New Jersey 45463',
       isSelected: false,
     ),
   ];

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../../const/color_const.dart';
 import '../../../../controller/chat_detail_controller.dart';
 
@@ -23,7 +24,11 @@ class CustomChatInputBar extends StatelessWidget {
       child: Row(
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () => Get.snackbar(
+              'Attachment',
+              'Image picker will be available with camera integration.',
+              snackPosition: SnackPosition.BOTTOM,
+            ),
             child: Container(
               width: 40.r,
               height: 40.r,

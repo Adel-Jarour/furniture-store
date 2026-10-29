@@ -5,6 +5,7 @@ import '../../models/coupon_model.dart';
 import '../../models/order_model.dart';
 import '../../models/product_model.dart';
 import '../../models/shipping_option_model.dart';
+import '../../models/review_summary_model.dart';
 
 class OrderRepository {
   Future<List<CartItemModel>> getCartItems() async {
@@ -386,5 +387,39 @@ class OrderRepository {
           ),
         ];
     }
+  }
+
+  Future<ReviewSummaryModel> getReviewSummary() async {
+    return const ReviewSummaryModel(
+      items: [
+        ReviewSummaryItemModel(
+          id: 'rs_1',
+          title: 'Arm Chair',
+          category: 'Chair',
+          price: 180.00,
+          quantity: 1,
+          rating: 4.5,
+          image: ImageConst.productArmChair,
+        ),
+        ReviewSummaryItemModel(
+          id: 'rs_2',
+          title: 'Arm Chair',
+          category: 'Chair',
+          price: 120.00,
+          quantity: 1,
+          rating: 4.5,
+          image: ImageConst.productSofaChair,
+        ),
+      ],
+      orderDate: 'Sep 18, 2023 | 10:00 AM',
+      promoCode: 'FR1254HGGWE',
+      deliveryType: 'Economy',
+      amount: 300.00,
+      deliveryCharge: 25.00,
+      tax: 25.00,
+      discount: -25.00,
+      total: 325.00,
+      paymentMethod: 'Paypal',
+    );
   }
 }

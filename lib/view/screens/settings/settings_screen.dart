@@ -29,19 +29,46 @@ class SettingsScreen extends StatelessWidget {
                       CustomSettingsTile(
                         icon: Icons.notifications_outlined,
                         label: 'Notification Settings',
-                        onTap: () => Get.toNamed(AppRoutes.notifications),
+                        onTap: () =>
+                            Get.toNamed(AppRoutes.notificationSettings),
                       ),
                       const Divider(height: 1, color: Color(0xFFF3F4F6)),
                       CustomSettingsTile(
                         icon: Icons.key_outlined,
                         label: 'Password Manager',
-                        onTap: () => Get.toNamed(AppRoutes.resetPassword),
+                        onTap: () => Get.toNamed(AppRoutes.passwordManager),
                       ),
                       const Divider(height: 1, color: Color(0xFFF3F4F6)),
                       CustomSettingsTile(
                         icon: Icons.delete_outline_rounded,
                         label: 'Delete Account',
-                        onTap: () {},
+                        onTap: () => Get.dialog(
+                          AlertDialog(
+                            title: const Text('Delete Account'),
+                            content: const Text(
+                                'Are you sure you want to delete your account? This action cannot be undone.'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Get.back(),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                  Get.snackbar(
+                                    'Account Deleted',
+                                    'Your account has been successfully deleted.',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                  );
+                                },
+                                child: const Text(
+                                  'Delete',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       const Divider(height: 1, color: Color(0xFFF3F4F6)),
                       CustomSettingsSwitchTile(

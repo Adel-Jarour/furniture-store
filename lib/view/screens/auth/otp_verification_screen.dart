@@ -11,6 +11,7 @@ class OtpVerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
+      init: AuthController(),
       builder: (controller) {
         final defaultPinTheme = PinTheme(
           width: 58.w,

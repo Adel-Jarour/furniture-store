@@ -63,7 +63,7 @@ class CustomHomeHeader extends StatelessWidget {
 
         // Notification Bell with Badge
         GestureDetector(
-          onTap: () {},
+          onTap: () => Get.toNamed(AppRoutes.notifications),
           child: Container(
             width: 44.r,
             height: 44.r,

@@ -44,10 +44,12 @@ dependencies:
   pinput: ^5.0.0
   flutter_staggered_animations: ^1.1.1
   google_fonts: ^6.3.0
+  flutter_native_splash: ^2.4.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.14.3
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -97,3 +99,33 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+# ── Native Splash Screen Configuration ───────────────────────────────────────
+flutter_native_splash:
+  # Background color matching the app primary brand color (Slate Teal)
+  color: "#2D4F4F"
+
+  # The logo to display centered on the splash background
+  image: assets/images/splash_logo.png
+
+  # Dark mode: same brand color for a seamless look
+  color_dark: "#2D4F4F"
+  image_dark: assets/images/splash_logo.png
+
+  android_12:
+    # Android 12+ uses an adaptive icon for the splash
+    color: "#2D4F4F"
+    image: assets/images/splash_logo.png
+    color_dark: "#2D4F4F"
+    image_dark: assets/images/splash_logo.png
+
+  web: false
+
+# ── App Launcher Icon Configuration ──────────────────────────────────────────
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/splash_logo.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#2D4F4F"
+  adaptive_icon_foreground: "assets/images/splash_logo.png"

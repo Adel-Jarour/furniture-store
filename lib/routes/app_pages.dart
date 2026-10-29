@@ -12,7 +12,6 @@ import '../view/screens/home/home_screen.dart';
 import '../view/screens/location/location_screen.dart';
 import '../view/screens/onboarding/onboarding_screen.dart';
 import '../view/screens/profile/profile_screen.dart';
-import '../view/screens/splash/splash_screen.dart';
 import '../view/screens/catalog/category_screen.dart';
 import '../view/screens/catalog/filter_screen.dart';
 import '../view/screens/product_details/leave_review_screen.dart';
@@ -39,15 +38,20 @@ import '../view/screens/help_center/help_center_screen.dart';
 import '../view/screens/profile/privacy_policy_screen.dart';
 import '../view/screens/search/search_screen.dart';
 import '../view/screens/location/search_manual_location_screen.dart';
+import '../view/screens/catalog/category_products_screen.dart';
+import '../view/screens/invite_friends/invite_friends_screen.dart';
+import '../view/screens/password_manager/password_manager_screen.dart';
+import '../view/screens/checkout/review_summary_screen.dart';
+import '../view/screens/product_details/product_reviews_screen.dart';
+import '../view/screens/address/shipping_address_screen.dart';
+import '../view/screens/call/video_call_screen.dart';
+import '../view/screens/call/voice_call_screen.dart';
+import '../view/screens/notifications/notification_settings_screen.dart';
 
 class AppPages {
-  static const initial = AppRoutes.splash;
+  static const initial = AppRoutes.welcome;
 
   static final List<GetPage> routes = [
-    GetPage(
-      name: AppRoutes.splash,
-      page: () => const SplashScreen(),
-    ),
     GetPage(
       name: AppRoutes.welcome,
       page: () => const WelcomeScreen(),
@@ -236,6 +240,51 @@ class AppPages {
     GetPage(
       name: AppRoutes.searchManualLocation,
       page: () => const SearchManualLocationScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.categoryProducts,
+      page: () => const CategoryProductsScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.inviteFriends,
+      page: () => const InviteFriendsScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.passwordManager,
+      page: () => const PasswordManagerScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.reviewSummary,
+      page: () => const ReviewSummaryScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.productReviews,
+      page: () => const ProductReviewsScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.shippingAddress,
+      page: () => const ShippingAddressScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.videoCall,
+      page: () => const VideoCallScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutes.voiceCall,
+      page: () => const VoiceCallScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutes.notificationSettings,
+      page: () => const NotificationSettingsScreen(),
       transition: Transition.rightToLeft,
     ),
   ];

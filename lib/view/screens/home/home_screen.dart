@@ -54,8 +54,16 @@ class HomeScreen extends StatelessWidget {
                   // ── Category Icons Row ─────────────────────────────
                   CustomHomeCategories(
                     categories: controller.categories,
-                    selectedIndex: controller.selectedCategoryIndex,
-                    onCategoryTap: (index) => Get.toNamed(AppRoutes.category),
+                    onCategoryTap: (index) {
+                      final category = controller.categories[index];
+                      Get.toNamed(
+                        AppRoutes.categoryProducts,
+                        arguments: {
+                          'categoryName': category.title,
+                          'categoryId': category.id,
+                        },
+                      );
+                    },
                     onSeeAllTap: () => Get.toNamed(AppRoutes.category),
                   ),
                   SizedBox(height: 22.h),

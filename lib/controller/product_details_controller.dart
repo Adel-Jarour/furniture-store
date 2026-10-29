@@ -38,20 +38,26 @@ class ProductDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Default product from Figma design
-    product = const ProductModel(
-      id: 'prod_sofa_chair',
-      title: 'Modern Sofa Chair',
-      category: 'Arm Chair',
-      price: 120.00,
-      originalPrice: 150.00,
-      rating: 4.5,
-      reviewsCount: 142,
-      image: ImageConst.productSofaChair,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-      isFavorite: false,
-    );
+    final args = Get.arguments;
+    if (args is ProductModel) {
+      product = args;
+      isFavorite = args.isFavorite;
+    } else {
+      // Default product from Figma design
+      product = const ProductModel(
+        id: 'prod_sofa_chair',
+        title: 'Modern Sofa Chair',
+        category: 'Arm Chair',
+        price: 120.00,
+        originalPrice: 150.00,
+        rating: 4.5,
+        reviewsCount: 142,
+        image: ImageConst.productSofaChair,
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+        isFavorite: false,
+      );
+    }
   }
 
   String get selectedColorName => colorOptions[selectedColorIndex].name;

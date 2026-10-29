@@ -70,6 +70,71 @@ class CatalogRepository {
     );
   }
 
+  Future<List<ProductModel>> getProductsByCategory(String category) async {
+    return const [
+      ProductModel(
+        id: 'cat_prod_1',
+        title: 'Arm Chair',
+        category: 'Chair',
+        price: 180.00,
+        rating: 4.9,
+        reviewsCount: 86,
+        image: ImageConst.productArmChair,
+        isFavorite: true,
+      ),
+      ProductModel(
+        id: 'cat_prod_2',
+        title: 'Sofa Chair',
+        category: 'Chair',
+        price: 120.00,
+        rating: 5.0,
+        reviewsCount: 142,
+        image: ImageConst.productSofaChair,
+        isFavorite: false,
+      ),
+      ProductModel(
+        id: 'cat_prod_3',
+        title: 'Wood Chair',
+        category: 'Chair',
+        price: 110.00,
+        rating: 4.9,
+        reviewsCount: 54,
+        image: ImageConst.productWoodChair,
+        isFavorite: false,
+      ),
+      ProductModel(
+        id: 'cat_prod_4',
+        title: 'Grey Chair',
+        category: 'Chair',
+        price: 200.00,
+        rating: 5.0,
+        reviewsCount: 97,
+        image: ImageConst.productGreyChair,
+        isFavorite: true,
+      ),
+      ProductModel(
+        id: 'cat_prod_5',
+        title: 'Sofa Chair',
+        category: 'Chair',
+        price: 180.00,
+        rating: 4.9,
+        reviewsCount: 63,
+        image: ImageConst.productSofaChair,
+        isFavorite: true,
+      ),
+      ProductModel(
+        id: 'cat_prod_6',
+        title: 'Wood Chair',
+        category: 'Chair',
+        price: 130.00,
+        rating: 5.0,
+        reviewsCount: 41,
+        image: ImageConst.productWoodChair,
+        isFavorite: false,
+      ),
+    ];
+  }
+
   Future<bool> submitReview(ReviewModel review) async {
     return true;
   }
